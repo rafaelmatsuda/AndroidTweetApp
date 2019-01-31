@@ -1,16 +1,20 @@
 package br.com.caelum.twittelumappweb.viewmodel
 
+import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import android.util.Log
+import br.com.caelum.twittelumappweb.adapter.UsuarioRepository
 import br.com.caelum.twittelumappweb.modelo.Usuario
 
-class UsuarioViewModel() : ViewModel() {
+class UsuarioViewModel(private val repository: UsuarioRepository) : ViewModel() {
 
-    fun cria(usuario: Usuario){
-        Log.i("Login", "logando usuario")
-    }
+    val temUsuario: MutableLiveData<Boolean> = repository.estaLogado
 
-    fun loga(usuario: Usuario){
-        Log.i("Login", "criando usuario")
-    }
+    val usuarioLogado: Usuario = repository.usuarioLogado()
+
+    fun desloga() = repository.desloga()
+
+    fun cria(usuario: Usuario) = repository.cria(usuario)
+
+    fun loga(usuario: Usuario) = repository.loga(usuario)
 }
